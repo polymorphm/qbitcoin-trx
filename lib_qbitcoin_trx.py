@@ -82,9 +82,9 @@ def rpc(
     
     try:
         with opener.open(req, timeout=conn.timeout) as f:
-            resp_data_bytes = typing.cast(bytes, f.read())
+            resp_data_bytes = typing.cast(bytes, f.read(conn.read_size))
     except url_error.HTTPError as e:
-        resp_data_bytes = typing.cast(bytes, e.read())
+        resp_data_bytes = typing.cast(bytes, e.read(conn.read_size))
     
     resp_data = json.loads(resp_data_bytes)
     
