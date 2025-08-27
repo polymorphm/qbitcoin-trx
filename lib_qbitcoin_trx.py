@@ -41,7 +41,7 @@ def _check_nullable_type[T](typ: typing.Type[T], val: typing.Any) -> T | None:
     
     return val
 
-DEFAULT_TIMEOUT = 20.0
+DEFAULT_TIMEOUT = 1000.0
 DEFAULT_READ_SIZE = 1024 * 1024 * 256
 
 @dataclass
