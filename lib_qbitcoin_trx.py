@@ -41,6 +41,12 @@ def _check_nullable_type[T](typ: typing.Type[T], val: typing.Any) -> T | None:
     
     return val
 
+def _int_to_float(val: typing.Any) -> typing.Any:
+    if isinstance(val, int):
+        return float(val)
+    
+    return val
+
 DEFAULT_TIMEOUT = 1000.0
 DEFAULT_READ_SIZE = 1024 * 1024 * 256
 
@@ -150,7 +156,7 @@ def get_balance(
         if address != item_addr:
             raise AssertionError
         
-        balance += _check_type(float, item['amount'])
+        balance += _check_type(float, _int_to_float(item['amount']))
     
     return balance
 
@@ -178,7 +184,7 @@ def send_balance(
             if from_address != item_addr:
                 raise AssertionError
             
-            balance += _check_type(float, input_trx_item['amount'])
+            balance += _check_type(float, _int_to_float(input_trx_item['amount']))
             inputs.append({
                 'txid': _check_type(str, input_trx_item['txid']),
                 'vout': _check_type(int, input_trx_item['vout']),
